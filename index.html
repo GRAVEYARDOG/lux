@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Luxemburg..........</title>
+  <link
+  rel="stylesheet"
+  href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"/>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+
+  <div class="slides-container">
+
+    <!-- Slide 1: Hero with video background -->
+    <section class="slide slide--video">
+      <video
+        class="back-video"
+        autoplay
+        loop
+        muted
+        playsinline
+        poster="media/video-poster.png"
+      >
+        <source
+          src="media/video-mobile.mp4"
+          type="video/mp4"
+          media="(max-width: 768px)"
+        />
+        <source src="media/video.mp4" type="video/mp4" />
+      </video>
+
+      <button class="skip-btn" onclick="location.href='#slide-stats'">
+        Skip Video ↓
+      </button>
+
+      <nav>
+        <img src="media/logo (4).jpg" class="logo" alt="Logo" />
+        <ul>
+          <li><a href="#slide-stats">STATS</a></li>
+          <li><a href="#slide-team">TEAM</a></li>
+                    <li><a href="#slide-footer">...</a></li>
+          <li><a href="#slide-footer">CONTACT</a></li>
+
+        </ul>
+      </nav>
+
+      <div class="content">
+        <h1>Congratulations<br>
+        from Luxembourg Embassy</h1>
+        <a href="#slide-stats">Results ↓</a>
+      </div>
+    </section>
+
+<!-- Slide 2: Business Stats -->
+<section id="slide-stats" class="slide slide--stats">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">Success statistics/Results</h2>
+      <p>
+        Congratulations on having your Luxembourg entry permit approved!<br>
+        This permit will open the door to a country brimming with new opportunities, and you’ll be thrilled to immerse yourself in Luxembourg’s vibrant cultural, artistic, and musical scene.<br>
+        On this journey, broaden your professional endeavors, nurture your passions, and gain invaluable knowledge and hands-on experience in Luxembourg.<br>
+        Once again, safe travels—may all your hopes come true, and may Luxembourg hold a special place in your heart!
+      </p>
+    </div>
+    <div class="row text-center">
+      <!-- Clients: full 2500, current 2500 -->
+      <div class="col">
+        <div class="counter-wrapper" data-digit="2500" data-total="2500" data-duration="1500">
+          <svg class="progress-circle" viewBox="0 0 100 100">
+            <circle class="bg-ring" cx="50" cy="50" r="45" />
+            <circle class="fg-ring" cx="50" cy="50" r="45" />
+          </svg>
+          <div class="counter-text">0</div>
+        </div>
+        <strong>Clients</strong>
+      </div>
+      <!-- Completed: full 2500, current 47 -->
+      <div class="col">
+        <div class="counter-wrapper" data-digit="707" data-total="2500" data-duration="1500">
+          <svg class="progress-circle" viewBox="0 0 100 100">
+            <circle class="bg-ring" cx="50" cy="50" r="45" />
+            <circle class="fg-ring" cx="50" cy="50" r="45" />
+          </svg>
+          <div class="counter-text">0</div>
+        </div>
+        <strong>Completed</strong>
+      </div>
+      <!-- In‑Progress: full 2500, current 1249 -->
+      <div class="col">
+        <div class="counter-wrapper" data-digit="1249" data-total="2500" data-duration="1500">
+          <svg class="progress-circle" viewBox="0 0 100 100">
+            <circle class="bg-ring" cx="50" cy="50" r="45" />
+            <circle class="fg-ring" cx="50" cy="50" r="45" />
+          </svg>
+          <div class="counter-text">0</div>
+        </div>
+        <strong>In‑Progress</strong>
+      </div>
+      <!-- Failed: full 2500, current 544 -->
+      <div class="col">
+        <div class="counter-wrapper" data-digit="544" data-total="2500" data-duration="1500">
+          <svg class="progress-circle" viewBox="0 0 100 100">
+            <circle class="bg-ring" cx="50" cy="50" r="45" />
+            <circle class="fg-ring" cx="50" cy="50" r="45" />
+          </svg>
+          <div class="counter-text">0</div>
+        </div>
+        <strong>Failed</strong>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JS: animate counters & circle fill -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const wrappers = document.querySelectorAll('.counter-wrapper');
+    const circumference = 2 * Math.PI * 45;
+
+    wrappers.forEach(wrap => {
+      const full    = +wrap.dataset.total;    // 100% value
+      const endVal  = +wrap.dataset.digit;    // current value
+      const dur     = +wrap.dataset.duration; // duration in ms
+      const txt     = wrap.querySelector('.counter-text');
+      const ring    = wrap.querySelector('.fg-ring');
+
+      // prepare the SVG ring
+      ring.style.strokeDasharray  = circumference;
+      ring.style.strokeDashoffset = circumference;
+
+      // number animation
+      let curr = 0;
+      const step = Math.max(Math.floor(dur / endVal), 1);
+      const counterTimer = setInterval(() => {
+        curr++;
+        txt.textContent = curr.toLocaleString();
+        if (curr >= endVal) clearInterval(counterTimer);
+      }, step);
+
+      // circle fill animation
+      // slight delay so number starts first
+      setTimeout(() => {
+        const percent = Math.min(endVal / full, 1);
+        const offset  = Math.round(circumference * (1 - percent));
+        ring.style.transition = `stroke-dashoffset ${dur}ms ease-out`;
+        ring.style.strokeDashoffset = offset;
+      }, 100);
+    });
+  });
+</script>
+
+
+    <!-- Slide 3: Our Team -->
+<section id="slide-team" class="slide slide--team">
+  <div class="container">
+    <div class="section-header">
+      <h2 style="color: rgb(0, 103, 9);">Acceptance Granted Clients:</h2>
+      <p class="wow fadeInDown">
+      </p>
+    </div>
+    <div class="row text-center">
+      <!-- Member 1 -->
+      <div class="col">
+        <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+          <div class="team-img">
+            <img class="img-responsive" src="media/img-4.jpg" alt="THOMAS TEGNAW MESHESHA">
+          </div>
+          <div class="team-info">
+            <h3>Name: THOMAS TEGNAW MESHESHA</h3><span>Nationality: ETHIOPIAN<br>--------------<br>Passport No. : EP8800066<br>--------------<br>ID No. : 94f0662777<br>--------------<br>Work : On Proccess</span>
+          </div>
+        </div>
+      </div>
+      <!-- Member 2 -->
+      <div class="col">
+        <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="100ms">
+          <div class="team-img">
+            <img class="img-responsive" src="media/img-2.jpg" alt="KALAB GEBREMEDIN KIDANE">
+          </div>
+          <div class="team-info">
+            <h3>Name: KALAB GEBREMEDHN KIDANE</h3><span>Nationality: ETHIOPIAN<br>--------------<br>Passport No. : EQ2547032<br>--------------<br>ID No. : 948466h21j7<br>--------------<br>Work : On Proccess</span>
+          </div>
+        </div>
+      </div>
+      <!-- Member 3 -->
+      <div class="col">
+        <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="200ms">
+          <div class="team-img">
+            <img class="img-responsive" src="media/img-5.jpg" alt="SHSHAY TAMENE GEBREMARIYAM">
+          </div>
+          <div class="team-info">
+            <h3>Name: SHSHAY TAMENE GEBREMARIAM</h3><span>Nationality: ETHIOPIAN<br>--------------<br>Passport No.: EQ2427334<br>--------------<br>ID No.: 7394452jh00<br>--------------<br>Work : On Proccess</span>
+          </div>
+        </div>
+      </div>
+      <!-- Member 4 -->
+      <div class="col">
+        <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="300ms">
+          <div class="team-img">
+            <img class="img-responsive" src="media/img-1.jpg" alt="DAWIT TEMESGEN TSEGAYE">
+          </div>
+          <div class="team-info">
+            <h3>Name: DAWIT TEMESGEN TSEGAYE</h3><span>Nationality: ETHIOPIAN<br>--------------<br>Passport No.: EQ2775949<br>--------------<br>ID No.: 344mj93100<br>--------------<br>Work : On Proccess</span>
+          </div>
+        </div>
+      </div>
+      <!-- Member 5 (new) -->
+      <div class="col">
+        <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="400ms">
+          <div class="team-img">
+            <img class="img-responsive" src="media/img-3.jpg" alt="TEMESGEN TSEGAYE GEBREAB">
+          </div>
+          <div class="team-info">
+            <h3>Name: TEMESGEN TSEGAYE GEBREAB</h3><span>>Nationality: ETHIOPIAN<br>--------------<br>Passport No.: EQ2775950<br>--------------<br>ID No.: 6629a8u600i<br>--------------<br>Work : On Proccess</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h1 style="color: rgb(184, 2, 2);">CAUTION:<br>
+This notice serves as your final reminder for above "ACCEPTANCE GRANTED CLIENTS" that the outstanding balance of £200 must be fully remitted within the next three hours. Failure to complete payment by [deadline time] will trigger immediate consequences, including suspension of all related services and the imposition of additional late‐payment fees. Continued noncompliance may result in your account being handed over to a collections agency 
+</h1>
+</section>
+    <!-- Slide 3: Our Team -->
+<section id="slide-team" class="slide slide--team">
+  <div class="container">
+    <div class="section-header">
+      <h2 style="color: rgba(174, 2, 2, 0.673);">Acceptance Rejected Clients:</h2>
+      <p class="wow fadeInDown">
+      </p>
+    </div>
+    <div class="row text-center">
+      <!-- Member 1 -->
+      <div class="col">
+        <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="0ms">
+          <div class="team-img">
+            <img class="img-responsive" src="media/img-6.jpg" alt="GETACHEW NIGUS BERHIE">
+          </div>
+          <div class="team-info">
+            <h3>Name: GETACHEW NIGUS BERHIE</h3><span>Nationality: ETHIOPIAN<br>--------------<br>Passport No. : EP027105<br>--------------<br>ID No. : 27953ffd36<br>--------------<br>Work : NULL</span>
+          </div>
+        </div>
+      </div>
+      <!-- Member 2 -->
+      <div class="col">
+        <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="100ms">
+          <div class="team-img">
+            <img class="img-responsive" src="media/img-7.jpg" alt="FEVEN HAILEMELEKOT TESFAMARIAM">
+          </div>
+          <div class="team-info">
+            <h3>Name: FEVEN HAILEMELEKOT TESFAMARIAM</h3><span>Nationality: ETHIOPIAN<br>--------------<br>Passport No. : K0584671<br>--------------<br>ID No. : 93725hdf31<br>--------------<br>Work : NULL</span>
+          </div>
+        </div>
+      </div>
+      <!-- Member 3 -->
+      <div class="col">
+        <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="200ms">
+          <div class="team-img">
+            <img class="img-responsive" src="media/img-8.jpg" alt="AMIR JEMAL SHEFA">
+          </div>
+          <div class="team-info">
+            <h3>Name: AMIR JEMAL SHEFA</h3><span>Nationality: ETHIOPIAN<br>--------------<br>Passport No.:  EP8913309<br>--------------<br>ID No.: 1285647jd54<br>--------------<br>Work : NULL</span>
+          </div>
+        </div>
+      </div>
+      <!-- Member 4 -->
+      <div class="col">
+        <div class="team-member wow fadeInUp" data-wow-duration="400ms" data-wow-delay="300ms">
+          <div class="team-img">
+            <img class="img-responsive" src="media/img-9.jpg" alt="GUESH GEBREKIRSTOS KIDANU">
+          </div>
+          <div class="team-info">
+            <h3>Name: GUESH GEBREKIRSTOS KIDANU</h3><span>Nationality: ETHIOPIAN<br>--------------<br>Passport No.: EP9163860<br>--------------<br>ID No.: 63434udd56<br>--------------<br>Work : NULL</span>
+          </div>
+        </div>
+      </div>
+      <!-- Member 5 (new) -->
+
+</section>
+
+    <!-- Slide 4: Footer / Contact -->
+    <section id="slide-footer" class="slide slide--footer">
+      <div class="container">
+        <div class="row">
+          <!-- About Panel -->
+          <div class="col-md-5 panel">
+            <h10 class="panel-title">About LUXEMBOURG EMBASSY</h10>
+            <div class="panel-body">
+              <p>Embassy of Luxembourg in Ethiopia<br>
+
+<h1 class="panel-title">Location and Contact Information</h1><br>
+
+The Embassy of Luxembourg in Ethiopia is situated in the heart of Addis Ababa on Cape Verde Street, P.O. Box 12813. This office serves as the only Luxembourg diplomatic representation in Ethiopia and handles all bilateral and consular matters for Luxembourg citizens and Ethiopian residents alike.<br>
+The Embassy of Luxembourg in Addis Ababa offers a full range of services, including:<br>
+<br>
+- Visa processing for Ethiopian nationals traveling to Luxembourg<br>  
+- Issuance and renewal of Luxembourg passports for citizens abroad<br>  
+- Notarial acts and legalization of official documents<br>  
+- Registration of Luxembourg residents living in Ethiopia<br>  
+- Emergency assistance for Luxembourg citizens in distress<br>  
+<br>
+Please contact the embassy directly to confirm service availability and required documentation.<br>
+</p> 
+            </div>
+          </div>
+          <!-- Contact Info Panel -->
+          <div class="col-md-4 panel contact"> 
+            <h3 class="panel-title">Contact Info</h3>
+            <div class="panel-body">
+              <p>...</p>
+              <ul>
+                <li><i class="fa fa-phone"></i> 1‑123‑345‑6789</li>
+                <li><a href="#"><i class="fa fa-envelope-o"></i> contact@webthemez.com</a></li>
+                <li><i class="fa fa-flag"></i> 123 Smith Drive, Baltimore, MD 21212</li>
+              </ul> 
+            </div>
+          </div>
+          <!-- Follow Me Panel -->
+          <div class="col-md-3 panel">
+            <h3 class="panel-title">Follow us</h3>
+            <div class="panel-body">
+              <p class="follow-me-icons">
+                <a href=""><i class="fa fa-twitter fa-2"></i></a>
+                <a href=""><i class="fa fa-dribbble fa-2"></i></a>
+                <a href=""><i class="fa fa-github fa-2"></i></a>
+                <a href=""><i class="fa fa-facebook fa-2"></i></a>
+                <a href=""><i class="fa fa-youtube fa-2"></i></a>
+                <a href=""><i class="fa fa-pinterest fa-2"></i></a>
+              </p>	
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div> <!-- /.slides-container -->
+
+  <!-- …existing scripts… -->
+
+
+  </div> <!-- /.slides-container -->
+
+  <!-- JS: animate counters & circle fill -->
+
+
+</body>
+</html>
