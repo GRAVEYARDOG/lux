@@ -4,37 +4,20 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Luxembourg Embassy</title>
-  <link
-    rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
-  />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
   <div class="slides-container">
 
-    <!-- Slide 1: Hero with video background -->
+    <!-- Slide 1: Hero -->
     <section id="slide-hero" class="slide slide--video">
-      <video
-        class="back-video"
-        autoplay
-        loop
-        muted
-        playsinline
-        poster="media/video-poster.png"
-      >
-        <source
-          src="media/video-mobile.mp4"
-          type="video/mp4"
-          media="(max-width: 768px)"
-        />
+      <video class="back-video" autoplay loop muted playsinline>
         <source src="media/video.mp4" type="video/mp4" />
       </video>
 
-      <button class="skip-btn" onclick="location.href='#slide-stats'" aria-label="Skip Video">
-        Skip Video ↓
-      </button>
+      <button class="skip-btn" onclick="location.href='#slide-stats'">Skip Video ↓</button>
 
       <nav>
         <img src="media/logo (4).jpg" class="logo" alt="Embassy Logo" />
@@ -52,10 +35,10 @@
       </div>
     </section>
 
-    <!-- Slide 2: Business Stats -->
+    <!-- Slide 2: Stats -->
     <section id="slide-stats" class="slide slide--stats">
-      <!-- (same as before) -->
-        <div class="container">
+      <!-- Your stats content here -->
+       <div class="container">
         <div class="section-header">
           <h2 class="section-title">Success Statistics / Results</h2>
           <p>
@@ -116,8 +99,8 @@
 
     <!-- Slide 3: Accepted Clients -->
     <section id="slide-team-granted" class="slide slide--team">
-      <!-- (same as before) -->
- <div class="container">
+      <!-- Accepted clients grid here -->
+        <div class="container">
         <div class="section-header">
           <h2 class="section-title" style="color: #006907;">Acceptance Granted Clients</h2>
         </div>
@@ -210,6 +193,7 @@
     </section>
 
     <!-- Slide 4: Rejected Clients -->
+  <!-- Slide 4: Rejected Clients -->
     <section id="slide-team-rejected" class="slide slide--team">
       <div class="container">
         <div class="section-header">
@@ -284,9 +268,9 @@
       </div>
     </section>
 
-    <!-- Slide 5: Footer / Contact -->
+    <!-- Slide 5: Footer -->
     <section id="slide-footer" class="slide slide--footer">
-      <!-- (same as before) -->
+      <!-- Footer panels & contact -->
        <div class="container">
         <div class="row">
           <div class="col-md-5 panel">
@@ -322,21 +306,21 @@
       </div>
     </section>
 
-  </div><!-- /.slides-container -->
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const wrappers     = document.querySelectorAll('.counter-wrapper');
+      const wrappers = document.querySelectorAll('.counter-wrapper');
       const circumference = 2 * Math.PI * 45;
 
       wrappers.forEach(wrap => {
-        const full   = +wrap.dataset.total;
+        const full = +wrap.dataset.total;
         const endVal = +wrap.dataset.digit;
-        const dur    = +wrap.dataset.duration;
-        const txt    = wrap.querySelector('.counter-text');
-        const ring   = wrap.querySelector('.fg-ring');
+        const dur = +wrap.dataset.duration;
+        const txt = wrap.querySelector('.counter-text');
+        const ring = wrap.querySelector('.fg-ring');
 
-        ring.style.strokeDasharray  = circumference;
+        ring.style.strokeDasharray = circumference;
         ring.style.strokeDashoffset = circumference;
 
         let curr = 0;
@@ -349,12 +333,13 @@
 
         setTimeout(() => {
           const percent = Math.min(endVal / full, 1);
-          const offset  = Math.round(circumference * (1 - percent));
-          ring.style.transition       = `stroke-dashoffset ${dur}ms ease-out`;
+          const offset = Math.round(circumference * (1 - percent));
+          ring.style.transition = `stroke-dashoffset ${dur}ms ease-out`;
           ring.style.strokeDashoffset = offset;
         }, 100);
       });
     });
   </script>
+
 </body>
 </html>
