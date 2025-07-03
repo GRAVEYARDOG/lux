@@ -2,34 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, viewport-fit=cover" />
   <title>Luxembourg Embassy</title>
   <style>
-    /* Base & Scroll-Snap */
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     html, body {
-      height: 100%;
-      margin: 0;
-      overflow-y: scroll;
-      scroll-snap-type: y mandatory;
+      height: 100%; overflow: hidden;
       font-family: 'Poppins', sans-serif;
     }
-    .slides-container {
-      scroll-snap-type: y mandatory;
-    }
-    section {
-      height: 100vh;
+    .slides { height: 100%; overflow-y: auto; scroll-snap-type: y mandatory; }
+    .slide {
+      height: 100svh; /* dynamic viewport height on all devices */
+      min-height: 100vh; /* fallback */
       scroll-snap-align: start;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
       position: relative;
-      padding: 0;
-      margin: 0;
     }
-
-    /* Hero */
-    .back-video {
+    /* Hero Slide */
+    .slide--video { color: #fff; text-align: center; }
+    .slide--video video {
       position: fixed; top: 0; left: 0;
       width: 100vw; height: 100vh;
       object-fit: cover; z-index: -1;
@@ -37,329 +29,299 @@
     .skip-btn {
       position: absolute; top: 1rem; right: 1rem;
       background: rgba(0,0,0,0.5); color: #fff;
-      border: none; padding: .5rem 1rem; border-radius: 4px;
-      cursor: pointer; z-index: 2;
+      padding: .5rem 1rem; border: none; border-radius:4px;
+      font-size: .9rem; cursor: pointer;
+      z-index: 2;
     }
     nav {
-      position: absolute; top: 0; left: 0;
-      width: 100%; padding: 20px 8%;
-      display: flex; justify-content: flex-end;
-      align-items: center; z-index: 2;
+      position:absolute; top:0; width:100%;
+      padding:20px 8%; display:flex; justify-content: flex-end; z-index:2;
+    }
+    nav ul { display:flex; gap:20px; }
+    nav a {
+      color: #fff; text-decoration: none;
+      font-size: 1rem; font-weight: 500;
     }
     .logo {
-      position: absolute; top: 150%; left: 8%;
-      transform: translateY(-50%); width: 160px;
+      position:absolute; top: 100%; left:8%;
+      transform: translateY(-50%);
+      width:160px;
+      z-index: 2;
     }
-    nav ul {
-      list-style: none; display: flex; gap: 40px;
-      margin: 0; padding: 0;
+    .slide--video .content h1 {
+      font-size: 2.5rem; margin-bottom:1rem;
     }
-    nav a {
-      color: #fff; text-decoration: none; font-size: 16px;
+    .slide--video .content a {
+      border:2px solid #fff; border-radius:50px;
+      color:#fff; padding:0.7rem 2rem; text-decoration:none;
+      font-size:1.2rem;
     }
-    .content {
-      text-align: center; color: #fff; z-index: 2;
-    }
-    .content h1 {
-      font-size: 4rem; margin-bottom: 1rem;
-    }
-    .content a {
-      display: inline-block; padding: .7rem 2rem;
-      border: 2px solid #fff; border-radius: 50px;
-      color: #fff; text-decoration: none; font-size: 1.2rem;
-    }
-
-    /* Stats */
+    /* Stats Slide */
     .slide--stats {
-      background: #222; color: #fff;
-      padding: 60px 20px; text-align: center;
+      background: #222; color:#fff;
+      padding: 20px;
+      text-align:center;
     }
-    .slide--stats h2 { font-size: 2.5rem; margin-bottom: .5rem; }
-    .slide--stats p { max-width: 800px; margin: 0 auto; line-height: 1.6; }
-
-    .row { display: flex; flex-wrap: wrap; justify-content: center; gap: 40px; }
-    .col { flex: 1 1 200px; max-width: 250px; text-align: center; }
-
+    .slide--stats .row {
+      display:flex; flex-wrap:wrap;
+      justify-content:center; gap:20px;
+      margin-top:20px;
+    }
     .counter-wrapper {
-      position: relative; width: 120px; height: 120px; margin: 0 auto 10px;
+      position:relative; width:100px; height:100px;
     }
-    .progress-circle { width:100%; height:100%; transform:rotate(-90deg); }
-    .bg-ring, .fg-ring { fill:none; stroke-width:10; }
-    .bg-ring { stroke:#444; }
-    .fg-ring { stroke:#1abc9c; stroke-linecap:round; }
+    svg { width:100%; height:100%; transform:rotate(-90deg); }
+    .bg-ring { stroke:#444; fill:none; stroke-width:10 }
+    .fg-ring { stroke:#1abc9c; fill:none; stroke-width:10; stroke-linecap:round }
     .counter-text {
       position:absolute; top:50%; left:50%;
-      transform:translate(-50%, -50%);
-      font-size:2rem; color:#fff;
+      transform:translate(-50%,-50%);
+      font-size:1.5rem; color:#fff;
     }
-
-    /* Team (Accepted & Rejected) */
-    .slide--team { background: #fff; color: #333; padding: 60px 20px; }
-    .slide--team.rejected { background: #fee; }
-    .slide--team h2 { font-size:2.5rem; margin-bottom:1rem; }
+    /* Team Slides */
+    .slide--team {
+      background:#fff; padding:20px;
+      text-align:center;
+    }
+    .slide--team.rejected { background:#fee; }
+    .slide--team .row {
+      display:flex; flex-wrap:wrap; gap:20px;
+      justify-content:center;
+    }
     .team-member {
-      text-align:center; max-width:250px; flex:1 1 200px;
+      width:200px; flex:0 0 auto;
+      text-align:center;
     }
-    .team-img img {
-      width:200px; height:200px; object-fit:cover; display:block; margin:0 auto;
+    .team-member img {
+      width:200px; height:200px; object-fit:cover;
     }
-    .team-info h3 { margin:.5rem 0 .2rem; font-size:1.1rem; }
-    .team-info span { font-size:1rem; color:#555; line-height:1.4; }
-
-    /* Footer */
+    .team-info h3 { margin:8px 0 4px; font-size:1rem; }
+    .team-info span { font-size:.9rem; color:#555; line-height:1.4; }
+    .alert {
+      margin-top:20px; color:#b80202;
+      font-weight:bold;
+    }
+    /* Footer Slide */
     .slide--footer {
-      background: #302A31; color: #ccc;
-      padding: 60px 20px; text-align: center;
+      background:#302A31; color:#ccc;
+      padding:20px;text-align:center;
     }
-    .slide--footer h3 { font-size:1.5rem; margin-bottom:1rem; }
-    .slide--footer p { color:#999; margin-bottom:.5rem; }
+    .slide--footer a { color:#ccc; text-decoration:none; }
   </style>
 </head>
 <body>
+  <div class="slides">
+    <!-- 1. Hero -->
+    <section id="slide-hero" class="slide slide--video">
+      <video autoplay loop muted playsinline>
+        <source src="media/video.mp4" type="video/mp4">
+      </video>
+      <button class="skip-btn" onclick="location.href='#slide-stats'">Skip Video ↓</button>
+      <nav>
+        <img src="media/logo (4).jpg" class="logo" alt="Logo">
+        <ul>
+          <li><a href="#slide-stats">STATS</a></li>
+          <li><a href="#slide-team-granted">GRANTED</a></li>
+          <li><a href="#slide-team-rejected">REJECTED</a></li>
+          <li><a href="#slide-footer">CONTACT</a></li>
+        </ul>
+      </nav>
+      <div class="content">
+        <h1>Congratulations<br>from Luxembourg Embassy</h1>
+        <a href="#slide-stats">Results ↓</a>
+      </div>
+    </section>
 
-<div class="slides-container">
-
-  <!-- 1. Hero -->
-  <section id="slide-hero">
-    <video class="back-video" autoplay loop muted>
-      <source src="media/video.mp4" type="video/mp4">
-    </video>
-    <button class="skip-btn" onclick="location.href='#slide-stats'">Skip Video ↓</button>
-    <nav>
-      <ul>
-        <li><a href="#slide-stats">STATS</a></li>
-        <li><a href="#slide-team-granted">GRANTED</a></li>
-        <li><a href="#slide-team-rejected">REJECTED</a></li>
-        <li><a href="#slide-footer">CONTACT</a></li>
-      </ul>
-    </nav>
-    <img src="media/logo (4).jpg" class="logo" alt="Embassy Logo">
-    <div class="content">
-      <h1>Congratulations<br>from Luxembourg Embassy</h1>
-      <a href="#slide-stats">Results ↓</a>
-    </div>
-  </section>
-
-  <!-- 2. Stats -->
-  <section id="slide-stats" class="slide--stats">
-    <h2>Success Statistics / Results</h2>
-    <p>
-      Congratulations on having your Luxembourg entry permit approved!<br>
-      This permit will open the door to a country brimming with new opportunities, and you’ll be thrilled to immerse yourself in Luxembourg’s vibrant cultural, artistic, and musical scene.<br>
-      On this journey, broaden your professional endeavors, nurture your passions, and gain invaluable knowledge and hands-on experience in Luxembourg.<br>
-      Once again, safe travels—may all your hopes come true, and may Luxembourg hold a special place in your heart!
-    </p>
-    <div class="row">
-      <div class="col">
+    <!-- 2. Stats -->
+    <section id="slide-stats" class="slide slide--stats">
+      <h2>Success Statistics / Results</h2>
+      <div class="row">
         <div class="counter-wrapper" data-digit="2500" data-total="2500" data-duration="1500">
-          <svg class="progress-circle" viewBox="0 0 100 100">
+          <svg viewBox="0 0 100 100">
             <circle class="bg-ring" cx="50" cy="50" r="45"/>
             <circle class="fg-ring" cx="50" cy="50" r="45"/>
           </svg>
           <div class="counter-text">0</div>
+          <div>Clients</div>
         </div>
-        <strong>Clients</strong>
-      </div>
-      <div class="col">
         <div class="counter-wrapper" data-digit="707" data-total="2500" data-duration="1500">
-          <svg class="progress-circle" viewBox="0 0 100 100">
+          <svg viewBox="0 0 100 100">
             <circle class="bg-ring" cx="50" cy="50" r="45"/>
             <circle class="fg-ring" cx="50" cy="50" r="45"/>
           </svg>
           <div class="counter-text">0</div>
+          <div>Completed</div>
         </div>
-        <strong>Completed</strong>
-      </div>
-      <div class="col">
         <div class="counter-wrapper" data-digit="1249" data-total="2500" data-duration="1500">
-          <svg class="progress-circle" viewBox="0 0 100 100">
+          <svg viewBox="0 0 100 100">
             <circle class="bg-ring" cx="50" cy="50" r="45"/>
             <circle class="fg-ring" cx="50" cy="50" r="45"/>
           </svg>
           <div class="counter-text">0</div>
+          <div>In‑Progress</div>
         </div>
-        <strong>In-Progress</strong>
-      </div>
-      <div class="col">
         <div class="counter-wrapper" data-digit="544" data-total="2500" data-duration="1500">
-          <svg class="progress-circle" viewBox="0 0 100 100">
+          <svg viewBox="0 0 100 100">
             <circle class="bg-ring" cx="50" cy="50" r="45"/>
             <circle class="fg-ring" cx="50" cy="50" r="45"/>
           </svg>
           <div class="counter-text">0</div>
+          <div>Failed</div>
         </div>
-        <strong>Failed</strong>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- 3. Accepted -->
-  <section id="slide-team-granted" class="slide--team">
-    <h2 style="color:#006907;">Acceptance Granted Clients</h2>
-    <div class="row">
-      <div class="team-member col">
-        <div class="team-img"><img src="media/img-4.jpg" alt="THOMAS TEGNAW MESHESHA"></div>
-        <div class="team-info">
-          <h3>THOMAS TEGNAW MESHESHA</h3>
-          <span>
-            Nationality: ETHIOPIAN<br>
-            Passport No.: EP8800066<br>
-            ID No.: 94f0662777<br>
-            Status: In Process
-          </span>
+    <!-- 3. Accepted -->
+    <section id="slide-team-granted" class="slide slide--team">
+      <h2 style="color:#006907;">Acceptance Granted Clients</h2>
+      <div class="row">
+        <!-- 5 Accepted -->
+        <div class="team-member">
+          <img src="media/img-4.jpg" alt="Thomas">
+          <div class="team-info">
+            <h3>THOMAS TEGNAW MESHESHA</h3>
+            <span>Nationality: ETHIOPIAN<br>
+                  Passport No.: EP8800066<br>
+                  ID No.: 94f0662777<br>
+                  Status: In Process</span>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="media/img-2.jpg" alt="Kalab">
+          <div class="team-info">
+            <h3>KALAB GEBREMEDHN KIDANE</h3>
+            <span>Nationality: ETHIOPIAN<br>
+                  Passport No.: EQ2547032<br>
+                  ID No.: 948466h21j7<br>
+                  Status: In Process</span>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="media/img-5.jpg" alt="Shshay">
+          <div class="team-info">
+            <h3>SHSHAY TAMENE GEBREMARIAM</h3>
+            <span>Nationality: ETHIOPIAN<br>
+                  Passport No.: EQ2427334<br>
+                  ID No.: 7394452jh00<br>
+                  Status: In Process</span>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="media/img-1.jpg" alt="Dawit">
+          <div class="team-info">
+            <h3>DAWIT TEMESGEN TSEGAYE</h3>
+            <span>Nationality: ETHIOPIAN<br>
+                  Passport No.: EQ2775949<br>
+                  ID No.: 344mj93100<br>
+                  Status: In Process</span>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="media/img-3.jpg" alt="Temesgen">
+          <div class="team-info">
+            <h3>TEMESGEN TSEGAYE GEBREAB</h3>
+            <span>Nationality: ETHIOPIAN<br>
+                  Passport No.: EQ2775950<br>
+                  ID No.: 6629a8u600i<br>
+                  Status: In Process</span>
+          </div>
         </div>
       </div>
-      <div class="team-member col">
-        <div class="team-img"><img src="media/img-2.jpg" alt="KALAB GEBREMEDHN KIDANE"></div>
-        <div class="team-info">
-          <h3>KALAB GEBREMEDHN KIDANE</h3>
-          <span>
-            Nationality: ETHIOPIAN<br>
-            Passport No.: EQ2547032<br>
-            ID No.: 948466h21j7<br>
-            Status: In Process
-          </span>
-        </div>
+      <div class="alert">
+        CAUTION: Outstanding balance of £200 must be remitted within three hours or late fees apply.
       </div>
-      <div class="team-member col">
-        <div class="team-img"><img src="media/img-5.jpg" alt="SHSHAY TAMENE GEBREMARIAM"></div>
-        <div class="team-info">
-          <h3>SHSHAY TAMENE GEBREMARIAM</h3>
-          <span>
-            Nationality: ETHIOPIAN<br>
-            Passport No.: EQ2427334<br>
-            ID No.: 7394452jh00<br>
-            Status: In Process
-          </span>
-        </div>
-      </div>
-      <div class="team-member col">
-        <div class="team-img"><img src="media/img-1.jpg" alt="DAWIT TEMESGEN TSEGAYE"></div>
-        <div class="team-info">
-          <h3>DAWIT TEMESGEN TSEGAYE</h3>
-          <span>
-            Nationality: ETHIOPIAN<br>
-            Passport No.: EQ2775949<br>
-            ID No.: 344mj93100<br>
-            Status: In Process
-          </span>
-        </div>
-      </div>
-      <div class="team-member col">
-        <div class="team-img"><img src="media/img-3.jpg" alt="TEMESGEN TSEGAYE GEBREAB"></div>
-        <div class="team-info">
-          <h3>TEMESGEN TSEGAYE GEBREAB</h3>
-          <span>
-            Nationality: ETHIOPIAN<br>
-            Passport No.: EQ2775950<br>
-            ID No.: 6629a8u600i<br>
-            Status: In Process
-          </span>
-        </div>
-      </div>
-    </div>
-    <div style="color:#b80202; margin-top:2rem; text-align:center; font-weight:bold;">
-      CAUTION: Outstanding balance of £200 must be remitted within three hours or late fees apply.
-    </div>
-  </section>
+    </section>
 
-  <!-- 4. Rejected -->
-  <section id="slide-team-rejected" class="slide--team rejected">
-    <h2 style="color:rgba(174,2,2,0.67);">Acceptance Rejected Clients</h2>
-    <div class="row">
-      <div class="team-member col">
-        <div class="team-img"><img src="media/img-6.jpg" alt="GETACHEW NIGUS BERHIE"></div>
-        <div class="team-info">
-          <h3>GETACHEW NIGUS BERHIE</h3>
-          <span>
-            Nationality: ETHIOPIAN<br>
-            Passport No.: EP027105<br>
-            ID No.: 27953ffd36<br>
-            Status: Null
-          </span>
+    <!-- 4. Rejected -->
+    <section id="slide-team-rejected" class="slide slide--team rejected">
+      <h2 style="color:rgba(174,2,2,0.67);">Acceptance Rejected Clients</h2>
+      <div class="row">
+        <!-- 4 Rejected -->
+        <div class="team-member">
+          <img src="media/img-6.jpg" alt="Getachew">
+          <div class="team-info">
+            <h3>GETACHEW NIGUS BERHIE</h3>
+            <span>Nationality: ETHIOPIAN<br>
+                  Passport No.: EP027105<br>
+                  ID No.: 27953ffd36<br>
+                  Status: Null</span>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="media/img-7.jpg" alt="Feven">
+          <div class="team-info">
+            <h3>FEVEN HAILEMELEKOT TESFAMARIAM</h3>
+            <span>Nationality: ETHIOPIAN<br>
+                  Passport No.: K0584671<br>
+                  ID No.: 93725hdf31<br>
+                  Status: Null</span>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="media/img-8.jpg" alt="Amir">
+          <div class="team-info">
+            <h3>AMIR JEMAL SHEFA</h3>
+            <span>Nationality: ETHIOPIAN<br>
+                  Passport No.: EP8913309<br>
+                  ID No.: 1285647jd54<br>
+                  Status: Null</span>
+          </div>
+        </div>
+        <div class="team-member">
+          <img src="media/img-9.jpg" alt="Guesh">
+          <div class="team-info">
+            <h3>GUESH GEBREKIRSTOS KIDANU</h3>
+            <span>Nationality: ETHIOPIAN<br>
+                  Passport No.: EP9163860<br>
+                  ID No.: 63434udd56<br>
+                  Status: Null</span>
+          </div>
         </div>
       </div>
-      <div class="team-member col">
-        <div class="team-img"><img src="media/img-7.jpg" alt="FEVEN HAILEMELEKOT TESFAMARIAM"></div>
-        <div class="team-info">
-          <h3>FEVEN HAILEMELEKOT TESFAMARIAM</h3>
-          <span>
-            Nationality: ETHIOPIAN<br>
-            Passport No.: K0584671<br>
-            ID No.: 93725hdf31<br>
-            Status: Null
-          </span>
-        </div>
-      </div>
-      <div class="team-member col">
-        <div class="team-img"><img src="media/img-8.jpg" alt="AMIR JEMAL SHEFA"></div>
-        <div class="team-info">
-          <h3>AMIR JEMAL SHEFA</h3>
-          <span>
-            Nationality: ETHIOPIAN<br>
-            Passport No.: EP8913309<br>
-            ID No.: 1285647jd54<br>
-            Status: Null
-          </span>
-        </div>
-      </div>
-      <div class="team-member col">
-        <div class="team-img"><img src="media/img-9.jpg" alt="GUESH GEBREKIRSTOS KIDANU"></div>
-        <div class="team-info">
-          <h3>GUESH GEBREKIRSTOS KIDANU</h3>
-          <span>
-            Nationality: ETHIOPIAN<br>
-            Passport No.: EP9163860<br>
-            ID No.: 63434udd56<br>
-            Status: Null
-          </span>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- 5. Footer -->
-  <section id="slide-footer" class="slide--footer">
-    <h3>About Luxembourg Embassy</h3>
-    <p>Embassy of Luxembourg in Ethiopia<br>Cape Verde Street, P.O. Box 12813, Addis Ababa.</p>
-    <p>Phone: +251-11-123-4567  |  Email: embassy.addis@mae.et</p>
-    <p>Full consular services: visa processing, passports, legalisation, emergency assistance.</p>
-  </section>
+    <!-- 5. Footer -->
+    <section id="slide-footer" class="slide slide--footer">
+      <h3>About Luxembourg Embassy</h3>
+      <p>Embassy of Luxembourg in Ethiopia</p>
+      <p>Cape Verde Street, P.O. Box 12813, Addis Ababa</p>
+      <p>Phone: +251‑11‑123‑4567 | Email: embassy.addis@mae.et</p>
+      <p>Full consular services: visa processing, passport issuance, document legalization, emergency assistance</p>
+    </section>
 
-</div>
+  </div>
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    const wrappers = document.querySelectorAll('.counter-wrapper');
-    const circumference = 2 * Math.PI * 45;
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const wrappers = document.querySelectorAll('.counter-wrapper');
+      const circumference = 2 * Math.PI * 45;
 
-    wrappers.forEach(wrap => {
-      const full = +wrap.dataset.total;
-      const endVal = +wrap.dataset.digit;
-      const dur = +wrap.dataset.duration;
-      const txt = wrap.querySelector('.counter-text');
-      const ring = wrap.querySelector('.fg-ring');
+      wrappers.forEach(wrap => {
+        const full = +wrap.dataset.total;
+        const endVal = +wrap.dataset.digit;
+        const dur = +wrap.dataset.duration;
+        const txt = wrap.querySelector('.counter-text');
+        const ring = wrap.querySelector('.fg-ring');
 
-      ring.style.strokeDasharray = circumference;
-      ring.style.strokeDashoffset = circumference;
+        ring.style.strokeDasharray = circumference;
+        ring.style.strokeDashoffset = circumference;
 
-      let curr = 0;
-      const step = Math.max(Math.floor(dur / endVal), 1);
-      const timer = setInterval(() => {
-        curr++;
-        txt.textContent = curr.toLocaleString();
-        if (curr >= endVal) clearInterval(timer);
-      }, step);
+        let curr = 0;
+        const step = Math.max(Math.floor(dur / endVal), 1);
+        const timer = setInterval(() => {
+          curr++;
+          txt.textContent = curr.toLocaleString();
+          if (curr >= endVal) clearInterval(timer);
+        }, step);
 
-      setTimeout(() => {
-        const percent = Math.min(endVal / full, 1);
-        const offset = Math.round(circumference * (1 - percent));
-        ring.style.transition = `stroke-dashoffset ${dur}ms ease-out`;
-        ring.style.strokeDashoffset = offset;
-      }, 100);
+        setTimeout(() => {
+          const percent = Math.min(endVal / full, 1);
+          const offset = Math.round(circumference * (1 - percent));
+          ring.style.transition = `stroke-dashoffset ${dur}ms ease-out`;
+          ring.style.strokeDashoffset = offset;
+        }, 100);
+      });
     });
-  });
-</script>
-
+  </script>
 </body>
 </html>
