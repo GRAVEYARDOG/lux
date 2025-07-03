@@ -1,16 +1,19 @@
-/* — Base & Scroll‑Snap — */
-html, body {
-  height: 100%;
-  margin: 0;
-  overflow-y: scroll;
+/* styles.css */
+/* styles.css */
+
+/* — Slide Container – now handles scroll-snap — */
+.slides-container {
+  height: 100svh;
+  min-height: 100vh;
+  overflow-y: auto;
   scroll-snap-type: y mandatory;
   font-family: 'Poppins', sans-serif;
+  margin: 0;
   background: none;
 }
 
-/* — Slide Container — */
+/* — Snap each slide into place — */
 .slides-container .slide {
-  height: 100vh;
   scroll-snap-align: start;
   display: flex;
   align-items: center;
@@ -18,7 +21,14 @@ html, body {
   position: relative;
   flex-direction: column;
   z-index: 0;
+  height: 100svh;
+  min-height: 100vh;
 }
+
+/* — [rest of your CSS as before, including .slide--video, .slide--stats, .slide--team, .slide--footer] — */
+
+/* just make sure you kept the media‑query tweaks at the bottom */
+
 
 /* — Slide 1: Video Hero — */
 .slide--video {
@@ -112,7 +122,6 @@ nav ul li a {
 .bg-ring { stroke: #444; }
 .fg-ring {
   stroke: #1abc9c; stroke-linecap: round;
-  /* dasharray/offset set in JS */
 }
 .counter-text {
   position: absolute; top: 50%; left: 50%;
@@ -120,9 +129,9 @@ nav ul li a {
   font-size: 2rem; color: #fff;
 }
 
-/* — Slide 3: Our Team — */
+/* — Slide 3 & 4: Team — */
 .slide--team {
-  background: #ffffff; color: #333;
+  background: #fff; color: #333;
   padding: 60px 20px; z-index: 0;
 }
 .slide--team .section-header {
@@ -142,122 +151,49 @@ nav ul li a {
 .team-img,
 .team-img img {
   border-radius: 0 !important;
-  overflow: hidden;      /* keep the image clipped to the box */
+  overflow: hidden;
 }
-
 .team-img img {
-  width: 200px;          /* pick your desired square size */
-  height: 200px;
-  object-fit: cover;     /* fills the box while preserving aspect ratio */
+  width: 200px; height: 200px;
+  object-fit: cover;
 }
-
 .team-info h3 {
   font-size: 1.2rem; margin: 0.5rem 0 0.2rem;
 }
 .team-info span {
   font-size: 1rem; color: #777;
 }
-.social-icons {
-  list-style: none; padding: 0;
-  margin: 10px 0 0; display: flex;
-  justify-content: center; gap: 10px;
-}
-.social-icons li a {
-  font-size: 1.2rem; color: #555;
-  transition: color 0.2s;
-}
-.social-icons li a:hover {
-  color: #1abc9c;
-}
 
-/* — Responsive Tweaks — */
-@media (max-width: 768px) {
-  .content h1 { font-size: 3rem; }
-  .content a { font-size: 18px; padding: 10px 30px; }
-  .section-header h2,
-  .slide--team .section-title { font-size: 2rem; }
-  .counter-wrapper { width: 100px; height: 100px; }
-  .counter-text { font-size: 1.5rem; }
-  .slide--team [class*="col"] {
-    flex: 1 1 100%; max-width: 100%;
-  }
-}
+/* — Slide 5: Footer — */
 .slide--footer {
-  background: #333;
-  color: #eee;
-  padding: 4rem 1rem;
-}
-.slide--footer a { color: #fff; }
-/* Slide‑4: Footer/Contact Styling */
-.slide--footer {
-  background: #302A31;    /* same as .footer1 bg */
-  color: #ccc;            /* light text */
-  padding: 60px 0;        /* vertical spacing */
-}
-
-/* Remove any default panel borders/shadows */
-.slide--footer .panel {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  margin-bottom: 30px;    /* space between panels */
-}
-
-/* Panel titles */
-.slide--footer .panel-title {
-  font-size: 17px;
-  font-weight: bold;
+  background: #302A31;
   color: #ccc;
-  margin-bottom: 20px;
+  padding: 60px 1rem;
 }
-
-/* Panel body resets */
+.slide--footer .panel {
+  background: transparent; border: none; box-shadow: none;
+  margin-bottom: 30px;
+}
+.slide--footer .panel-title {
+  font-size: 17px; font-weight: bold; margin-bottom: 20px;
+}
 .slide--footer .panel-body {
   padding: 0;
 }
-
-/* Contact list styling */
 .slide--footer .contact ul {
   padding: 0;
 }
 .slide--footer .contact ul li {
-  list-style: none;
-  margin-bottom: 10px;
-  color: #999;
+  list-style: none; margin-bottom: 10px; color: #999;
 }
-
-/* Links in the contact slide */
 .slide--footer a {
-  color: #ccc;
-  text-decoration: none;
+  color: #ccc; text-decoration: none;
 }
 .slide--footer a:hover {
   color: #fff;
 }
-
-/* Social icons */
 .slide--footer .follow-me-icons {
-  font-size: 30px;
-  margin: 0;               /* remove extra <p> margins */
+  font-size: 30px; margin: 0;
 }
 .slide--footer .follow-me-icons i {
-  float: left;
-  margin-right: 10px;
-}
-
-/* Utility to clear floats at end of row */
-.slide--footer .row::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Optional: make panel columns stack nicely on mobile */
-@media (max-width: 768px) {
-  .slide--footer .col-md-5,
-  .slide--footer .col-md-4,
-  .slide--footer .col-md-3 {
-    width: 100%;
-    margin-bottom: 30px;
-  }
-}
+  float: left; margin-right: 
