@@ -4,45 +4,119 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Luxembourg Embassy</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+  />
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
 
   <div class="slides-container">
 
-    <!-- Slide 1: Hero -->
+    <!-- Slide 1: Hero with video background -->
     <section id="slide-hero" class="slide slide--video">
-      <video class="back-video" autoplay loop muted playsinline>
+      <video
+        class="back-video"
+        autoplay
+        loop
+        muted
+        playsinline
+        poster="media/video-poster.png"
+      >
+        <source
+          src="media/video-mobile.mp4"
+          type="video/mp4"
+          media="(max-width: 768px)"
+        />
         <source src="media/video.mp4" type="video/mp4" />
       </video>
 
-      <button class="skip-btn" onclick="location.href='#slide-stats'">Skip Video ↓</button>
+      <button class="skip-btn" onclick="location.href='#slide-stats'" aria-label="Skip Video">
+        Skip Video ↓
+      </button>
 
       <nav>
         <img src="media/logo (4).jpg" class="logo" alt="Embassy Logo" />
         <ul>
-
+          <li><a href="#slide-stats">STATS</a></li>
           <li><a href="#slide-team-granted">GRANTED</a></li>
           <li><a href="#slide-team-rejected">REJECTED</a></li>
-                              <li><a href="#slide-stats">STATS</a></li>
           <li><a href="#slide-footer">CONTACT</a></li>
-
         </ul>
       </nav>
 
       <div class="content">
-        <h1>Congrats!</h1>
+        <h1>Congrats</h1>
         <a href="#slide-stats">Results ↓</a>
       </div>
     </section>
 
+    <!-- Slide 2: Business Stats -->
+<!-- Slide 2: Business Stats -->
+    <section id="slide-stats" class="slide slide--stats">
+      <div class="container">
+        <div class="section-header">
+          <h2 class="section-title">Success Statistics / Results</h2>
+          <p>
+            Congratulations on having your Luxembourg entry permit approved!<br />
+            This permit will open the door to a country brimming with new opportunities, and
+            you’ll be thrilled to immerse yourself in Luxembourg’s vibrant cultural,
+            artistic, and musical scene.<br />
+            On this journey, broaden your professional endeavors, nurture your passions,
+            and gain invaluable knowledge and hands-on experience in Luxembourg.<br />
+            Once again, safe travels—may all your hopes come true, and may Luxembourg hold
+            a special place in your heart!
+          </p>
+        </div>
+        <div class="row text-center">
+          <div class="col">
+            <div class="counter-wrapper" data-digit="2500" data-total="2500" data-duration="1500">
+              <svg class="progress-circle" viewBox="0 0 100 100">
+                <circle class="bg-ring" cx="50" cy="50" r="45" />
+                <circle class="fg-ring" cx="50" cy="50" r="45" />
+              </svg>
+              <div class="counter-text">0</div>
+            </div>
+            <strong>Clients</strong>
+          </div>
+          <div class="col">
+            <div class="counter-wrapper" data-digit="707" data-total="2500" data-duration="1500">
+              <svg class="progress-circle" viewBox="0 0 100 100">
+                <circle class="bg-ring" cx="50" cy="50" r="45" />
+                <circle class="fg-ring" cx="50" cy="50" r="45" />
+              </svg>
+              <div class="counter-text">0</div>
+            </div>
+            <strong>Completed</strong>
+          </div>
+          <div class="col">
+            <div class="counter-wrapper" data-digit="1249" data-total="2500" data-duration="1500">
+              <svg class="progress-circle" viewBox="0 0 100 100">
+                <circle class="bg-ring" cx="50" cy="50" r="45" />
+                <circle class="fg-ring" cx="50" cy="50" r="45" />
+              </svg>
+              <div class="counter-text">0</div>
+            </div>
+            <strong>In‑Progress</strong>
+          </div>
+          <div class="col">
+            <div class="counter-wrapper" data-digit="544" data-total="2500" data-duration="1500">
+              <svg class="progress-circle" viewBox="0 0 100 100">
+                <circle class="bg-ring" cx="50" cy="50" r="45" />
+                <circle class="fg-ring" cx="50" cy="50" r="45" />
+              </svg>
+              <div class="counter-text">0</div>
+            </div>
+            <strong>Failed</strong>
+          </div>
+        </div>
+      </div>
+    </section>
 
-
-    <!-- Slide 3: Accepted Clients -->
+   <!-- Slide 3: Accepted Clients -->
     <section id="slide-team-granted" class="slide slide--team">
-      <!-- Accepted clients grid here -->
-        <div class="container">
+      <div class="container">
         <div class="section-header">
           <h2 class="section-title" style="color: #006907;">Acceptance Granted Clients</h2>
         </div>
@@ -135,7 +209,6 @@
     </section>
 
     <!-- Slide 4: Rejected Clients -->
-  <!-- Slide 4: Rejected Clients -->
     <section id="slide-team-rejected" class="slide slide--team">
       <div class="container">
         <div class="section-header">
@@ -210,69 +283,9 @@
       </div>
     </section>
 
-        <!-- Slide 2: Stats -->
-    <section id="slide-stats" class="slide slide--stats">
-      <!-- Your stats content here -->
-       <div class="container">
-        <div class="section-header">
-          <h2 class="section-title">Success Statistics / Results</h2>
-          <p>
-            Congratulations on having your Luxembourg entry permit approved!<br />
-            This permit will open the door to a country brimming with new opportunities, and
-            you’ll be thrilled to immerse yourself in Luxembourg’s vibrant cultural,
-            artistic, and musical scene.<br />
-
-          </p>
-        </div>
-        <div class="row text-center">
-          <div class="col">
-            <div class="counter-wrapper" data-digit="2500" data-total="2500" data-duration="1500">
-              <svg class="progress-circle" viewBox="0 0 100 100">
-                <circle class="bg-ring" cx="50" cy="50" r="45" />
-                <circle class="fg-ring" cx="50" cy="50" r="45" />
-              </svg>
-              <div class="counter-text">0</div>
-            </div>
-            <strong>Clients</strong>
-          </div>
-          <div class="col">
-            <div class="counter-wrapper" data-digit="707" data-total="2500" data-duration="1500">
-              <svg class="progress-circle" viewBox="0 0 100 100">
-                <circle class="bg-ring" cx="50" cy="50" r="45" />
-                <circle class="fg-ring" cx="50" cy="50" r="45" />
-              </svg>
-              <div class="counter-text">0</div>
-            </div>
-            <strong>Completed</strong>
-          </div>
-          <div class="col">
-            <div class="counter-wrapper" data-digit="1249" data-total="2500" data-duration="1500">
-              <svg class="progress-circle" viewBox="0 0 100 100">
-                <circle class="bg-ring" cx="50" cy="50" r="45" />
-                <circle class="fg-ring" cx="50" cy="50" r="45" />
-              </svg>
-              <div class="counter-text">0</div>
-            </div>
-            <strong>In‑Progress</strong>
-          </div>
-          <div class="col">
-            <div class="counter-wrapper" data-digit="544" data-total="2500" data-duration="1500">
-              <svg class="progress-circle" viewBox="0 0 100 100">
-                <circle class="bg-ring" cx="50" cy="50" r="45" />
-                <circle class="fg-ring" cx="50" cy="50" r="45" />
-              </svg>
-              <div class="counter-text">0</div>
-            </div>
-            <strong>Failed</strong>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Slide 5: Footer -->
+<!-- Slide 5: Footer / Contact -->
     <section id="slide-footer" class="slide slide--footer">
-      <!-- Footer panels & contact -->
-       <div class="container">
+      <div class="container">
         <div class="row">
           <div class="col-md-5 panel">
             <h3 class="panel-title">About Luxembourg Embassy</h3>
@@ -307,23 +320,19 @@
       </div>
     </section>
 
-    
-
-  </div>
-
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const wrappers = document.querySelectorAll('.counter-wrapper');
+      const wrappers     = document.querySelectorAll('.counter-wrapper');
       const circumference = 2 * Math.PI * 45;
 
       wrappers.forEach(wrap => {
-        const full = +wrap.dataset.total;
+        const full   = +wrap.dataset.total;
         const endVal = +wrap.dataset.digit;
-        const dur = +wrap.dataset.duration;
-        const txt = wrap.querySelector('.counter-text');
-        const ring = wrap.querySelector('.fg-ring');
+        const dur    = +wrap.dataset.duration;
+        const txt    = wrap.querySelector('.counter-text');
+        const ring   = wrap.querySelector('.fg-ring');
 
-        ring.style.strokeDasharray = circumference;
+        ring.style.strokeDasharray  = circumference;
         ring.style.strokeDashoffset = circumference;
 
         let curr = 0;
@@ -336,13 +345,12 @@
 
         setTimeout(() => {
           const percent = Math.min(endVal / full, 1);
-          const offset = Math.round(circumference * (1 - percent));
-          ring.style.transition = `stroke-dashoffset ${dur}ms ease-out`;
+          const offset  = Math.round(circumference * (1 - percent));
+          ring.style.transition       = `stroke-dashoffset ${dur}ms ease-out`;
           ring.style.strokeDashoffset = offset;
         }, 100);
       });
     });
   </script>
-
 </body>
 </html>
