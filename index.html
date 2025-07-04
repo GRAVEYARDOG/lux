@@ -6,133 +6,171 @@
   <title>Luxembourg Embassy</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
+
     html, body {
-      height: 100%; overflow: hidden;
+      height: 100%; 
       font-family: 'Poppins', sans-serif;
+      overflow: auto; /* Allow scrolling! */
     }
-    .slides { height: 100%; overflow-y: auto; scroll-snap-type: y mandatory; }
+
+    .slides {
+      scroll-snap-type: y mandatory;
+      overflow-y: scroll;
+      height: 100svh; /* Dynamic viewport height fix for mobile */
+    }
+
     .slide {
-      height: 100svh; /* dynamic viewport height on all devices */
-      min-height: 100vh; /* fallback */
       scroll-snap-align: start;
-      display: flex; flex-direction: column;
-      align-items: center; justify-content: center;
-      position: relative;
+      min-height: 100svh;
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
     }
+
     /* Hero Slide */
-    .slide--video { color: #fff; text-align: center; }
+    .slide--video {
+      position: relative;
+      color: white;
+      text-align: center;
+    }
+
     .slide--video video {
-      position: fixed; top: 0; left: 0;
-      width: 100vw; height: 100vh;
-      object-fit: cover; z-index: -1;
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
     }
+
+    .slide--video .content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .slide--video h1 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .slide--video a {
+      display: inline-block;
+      padding: 0.6rem 1.4rem;
+      border: 2px solid #fff;
+      border-radius: 50px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
     .skip-btn {
-      position: absolute; top: 1rem; right: 1rem;
-      background: rgba(0,0,0,0.5); color: #fff;
-      padding: .5rem 1rem; border: none; border-radius:4px;
-      font-size: .9rem; cursor: pointer;
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
       z-index: 2;
+      background: rgba(0,0,0,0.5);
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      border: none;
+      cursor: pointer;
     }
-    nav {
-      position:absolute; top:0; width:100%;
-      padding:20px 8%; display:flex; justify-content: flex-end; z-index:2;
-    }
-    nav ul { display:flex; gap:20px; }
-    nav a {
-      color: #fff; text-decoration: none;
-      font-size: 1rem; font-weight: 500;
-    }
-    .logo {
-      position:absolute; top: 100%; left:8%;
-      transform: translateY(-50%);
-      width:160px;
-      z-index: 2;
-    }
-    .slide--video .content h1 {
-      font-size: 2.5rem; margin-bottom:1rem;
-    }
-    .slide--video .content a {
-      border:2px solid #fff; border-radius:50px;
-      color:#fff; padding:0.7rem 2rem; text-decoration:none;
-      font-size:1.2rem;
-    }
+
     /* Stats Slide */
     .slide--stats {
-      background: #222; color:#fff;
-      padding: 20px;
-      text-align:center;
+      background: #111;
+      color: #fff;
+      text-align: center;
     }
-    .slide--stats .row {
-      display:flex; flex-wrap:wrap;
-      justify-content:center; gap:20px;
-      margin-top:20px;
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      justify-content: center;
+      margin-top: 20px;
     }
+
     .counter-wrapper {
-      position:relative; width:100px; height:100px;
+      width: 100px;
+      height: 100px;
+      position: relative;
     }
-    svg { width:100%; height:100%; transform:rotate(-90deg); }
-    .bg-ring { stroke:#444; fill:none; stroke-width:10 }
-    .fg-ring { stroke:#1abc9c; fill:none; stroke-width:10; stroke-linecap:round }
+
+    svg { width: 100%; height: 100%; transform: rotate(-90deg); }
+    .bg-ring { stroke: #444; fill: none; stroke-width: 10 }
+    .fg-ring { stroke: #1abc9c; fill: none; stroke-width: 10; stroke-linecap: round }
+
     .counter-text {
-      position:absolute; top:50%; left:50%;
-      transform:translate(-50%,-50%);
-      font-size:1.5rem; color:#fff;
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 1.2rem;
     }
+
     /* Team Slides */
     .slide--team {
-      background:#fff; padding:20px;
-      text-align:center;
+      background: #f5f5f5;
+      text-align: center;
     }
-    .slide--team.rejected { background:#fee; }
-    .slide--team .row {
-      display:flex; flex-wrap:wrap; gap:20px;
-      justify-content:center;
+
+    .slide--team.rejected {
+      background: #ffe5e5;
     }
+
     .team-member {
-      width:200px; flex:0 0 auto;
-      text-align:center;
+      width: 200px;
+      flex: 0 0 auto;
+      text-align: center;
     }
+
     .team-member img {
-      width:200px; height:200px; object-fit:cover;
+      width: 100%;
+      height: auto;
     }
-    .team-info h3 { margin:8px 0 4px; font-size:1rem; }
-    .team-info span { font-size:.9rem; color:#555; line-height:1.4; }
+
+    .team-info h3 {
+      font-size: 1rem;
+      margin: 10px 0 5px;
+    }
+
+    .team-info span {
+      font-size: 0.9rem;
+      color: #555;
+    }
+
     .alert {
-      margin-top:20px; color:#b80202;
-      font-weight:bold;
+      margin-top: 20px;
+      color: #b80202;
+      font-weight: bold;
     }
+
     /* Footer Slide */
     .slide--footer {
-      background:#302A31; color:#ccc;
-      padding:20px;text-align:center;
+      background: #222;
+      color: #ccc;
+      text-align: center;
     }
-    .slide--footer a { color:#ccc; text-decoration:none; }
   </style>
 </head>
 <body>
-  <div class="slides">
-    <!-- 1. Hero -->
-    <section id="slide-hero" class="slide slide--video">
-      <video autoplay loop muted playsinline>
-        <source src="media/video.mp4" type="video/mp4">
-      </video>
-      <button class="skip-btn" onclick="location.href='#slide-stats'">Skip Video ↓</button>
-      <nav>
-        <img src="media/logo (4).jpg" class="logo" alt="Logo">
-        <ul>
-          <li><a href="#slide-stats">STATS</a></li>
-          <li><a href="#slide-team-granted">GRANTED</a></li>
-          <li><a href="#slide-team-rejected">REJECTED</a></li>
-          <li><a href="#slide-footer">CONTACT</a></li>
-        </ul>
-      </nav>
-      <div class="content">
-        <h1>Congratulations<br>from Luxembourg Embassy</h1>
-        <a href="#slide-stats">Results ↓</a>
-      </div>
-    </section>
 
-    <!-- 2. Stats -->
+<div class="slides">
+  <!-- Hero -->
+  <section class="slide slide--video">
+    <video autoplay muted loop playsinline>
+      <source src="media/video.mp4" type="video/mp4">
+    </video>
+    <button class="skip-btn" onclick="location.href='#stats'">Skip ↓</button>
+    <div class="content">
+      <h1>Congratulations<br>from Luxembourg Embassy</h1>
+      <a href="#stats">Results ↓</a>
+    </div>
+  </section>
+
+   <!-- 2. Stats -->
     <section id="slide-stats" class="slide slide--stats">
       <h2>Success Statistics / Results</h2>
       <div class="row">
